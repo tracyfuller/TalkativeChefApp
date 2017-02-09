@@ -25,9 +25,7 @@ myApp.controller('searchController', ['$http', '$scope', '$window', 'RecipeFacto
     console.log(id);
     $scope.recipeFactory.setID(id);
     $scope.recipeFactory.getRecipeFactory().then(function(repsonse){
-      // $scope.steps = $scope.recipeFactory.recipeSteps();
-      // console.log($scope.steps);
-      $window.location.href = '/public/views/recipe.html?id='+id
+    $window.location.href = '/public/views/recipe.html?id='+id
 
 });
 
@@ -39,7 +37,7 @@ myApp.controller('searchController', ['$http', '$scope', '$window', 'RecipeFacto
     } else {
       $scope.hideShowTutorial = false;
     }
-    console.log($scope.hideShowTutorial);
+    //console.log($scope.hideShowTutorial);
   }
 
 

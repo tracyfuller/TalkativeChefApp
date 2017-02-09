@@ -2,15 +2,16 @@ myApp.controller('resultsController', ['$http', '$scope', '$window', 'RecipeFact
 
 $scope.recipeFactory = RecipeFactory;
 
-var Url = document.URL;
-var ID = Url.split('=').pop();
+//get the ID off of URL;
+var address = document.URL;
+var ID = address.split('=').pop();
 
 
-    $scope.recipeFactory.setID(ID);
-    $scope.recipeFactory.getRecipeFactory(ID).then(function(response){
-    $scope.recipeInfo = $scope.recipeFactory.recipeSteps();
-    console.log($scope.recipeInfo);
-    });
+$scope.recipeFactory.setID(ID);
+$scope.recipeFactory.getRecipeFactory(ID).then(function(response){
+$scope.recipeInfo = $scope.recipeFactory.recipeSteps();
+console.log($scope.recipeInfo);
+});
 
 
 

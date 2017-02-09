@@ -1,14 +1,11 @@
 myApp.factory('RecipeFactory', ['$http', function($http) {
 
 var recipeResult = [];
-//var recipeId = '';
+var recipeId = '';
 var setSearch = '';
 
 
 var request = function() {
-    //var tagString = $scope.recipeSearchField;
-    //console.log(tagString);
-    //formatTagsForApiCall(tagString);
 
     var request = {
      method: 'GET',
@@ -32,9 +29,6 @@ var request = function() {
 
 var findRecipe = function() {
 
-    //var recipeId = id;
-    //console.log(recipeId);
-
     var request = {
       method: 'GET',
       url: 'https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/' + recipeId + '/information',
@@ -48,7 +42,6 @@ var findRecipe = function() {
             console.log('req:',request);
             console.log('resp:',response);  
             recipeResult = response.data;
-            //console.log(recipeResult);
         });
 
   return promise;
@@ -57,6 +50,7 @@ var findRecipe = function() {
 
 
 return {
+  //info once we find the recipe
   getRecipeFactory: function(){
     return findRecipe();
   },
@@ -69,7 +63,7 @@ return {
     recipeId = id;
   },
 
-
+  //search for recipe
   setSearch: function(search) {
     setSearch = search;
   },
