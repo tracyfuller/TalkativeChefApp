@@ -37,7 +37,7 @@ var findRecipe = function() {
 
     var request = {
       method: 'GET',
-      url: 'https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/' + recipeId + '/analyzedInstructions',
+      url: 'https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/' + recipeId + '/information',
       headers: {
         'Content-Type': 'application/json',
         'X-Mashape-Key': 'SQ10bf0CXymshkdJgwkErfFdYGT4p14N1aUjsnHZ8npfsZOeJD'

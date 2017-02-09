@@ -8,8 +8,8 @@ var ID = Url.split('=').pop();
 
     $scope.recipeFactory.setID(ID);
     $scope.recipeFactory.getRecipeFactory(ID).then(function(response){
-    $scope.recipeSteps = $scope.recipeFactory.recipeSteps();
-    console.log($scope.recipeSteps);
+    $scope.recipeInfo = $scope.recipeFactory.recipeSteps();
+    console.log($scope.recipeInfo);
     });
 
 
