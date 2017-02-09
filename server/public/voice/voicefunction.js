@@ -1,9 +1,9 @@
-//new angular stuff
-myApp.controller('resultsController', ['$http', '$scope', '$window', 'RecipeFactory', function($http, $scope, $window, RecipeFactory) {
+// //new angular stuff
+// myApp.controller('resultsController', ['$http', '$scope', '$window', 'RecipeFactory', function($http, $scope, $window, RecipeFactory) {
 
-//new angular stuff; sets id of the oatmeal cookie; connect to factory which sort of doesn't matter with setting the ID;
-$scope.recipeFactory = RecipeFactory;
-var id = 630187;
+// //new angular stuff; sets id of the oatmeal cookie; connect to factory which sort of doesn't matter with setting the ID;
+// $scope.recipeFactory = RecipeFactory;
+// var id = 630187;
 
 var SpeechRecognition = SpeechRecognition || webkitSpeechRecognition;
 var SpeechGrammarList = SpeechGrammarList || webkitSpeechGrammarList;
@@ -31,13 +31,13 @@ recognition.interimResults = true;
 recognition.maxAlternatives = 1;
 
 //if you want this to initialize on page load to results.html, the function will have to be rewritten as: 
-speech();
-function speech(){
-  responsiveVoice.speak("Let me know when you're ready.");
-  recognizing = true;
-  recognition.start();
-  console.log('Ready to receive a command.');
-}
+// speech();
+// function speech(){
+//   responsiveVoice.speak("Let me know when you're ready.");
+//   recognizing = true;
+//   recognition.start();
+//   console.log('Ready to receive a command.');
+// }
 
 
 
@@ -58,37 +58,37 @@ commands.forEach(function(v, i, a){
 });
 //hints.innerHTML = 'Tap/click then say a color to change the background color of the app. Try '+ colorHTML + '.';
 
-// speech = function(){
-//   responsiveVoice.speak("Let me know when you're ready.");
-//   recognizing = true;
-//   recognition.start();
-//   console.log('Ready to receive a command.');
+speech = function(){
+  responsiveVoice.speak("Let me know when you're ready.");
+  recognizing = true;
+  recognition.start();
+  console.log('Ready to receive a command.');
 
-// }
+}
 
-//setter for the factory to pull the correct id; 
-$scope.recipeFactory.setID(id);
+// //setter for the factory to pull the correct id; 
+// $scope.recipeFactory.setID(id);
 
-//intialize an empty array to hold ingredients;
-var text = [];
-var paragraph = '';
-var sentence = [];
-//uses the factory to call the API
-$scope.recipeFactory.getRecipeFactory().then(function(response){
-  $scope.steps = $scope.recipeFactory.recipeSteps();
-  //console.log($scope.steps);
-  //loop through the returned array and pull out the directions;
-  $scope.steps.forEach(
-    function(step, index){
-      //push to array;
-      text.push(step.step);
-    });
-  //console.log(text.join());
-  paragraph = text.join();
-  sentence = paragraph.split('.')
-  console.log(sentence);
+// //intialize an empty array to hold ingredients;
+// var text = [];
+// var paragraph = '';
+// var sentence = [];
+// //uses the factory to call the API
+// $scope.recipeFactory.getRecipeFactory().then(function(response){
+//   $scope.steps = $scope.recipeFactory.recipeSteps();
+//   //console.log($scope.steps);
+//   //loop through the returned array and pull out the directions;
+//   $scope.steps.forEach(
+//     function(step, index){
+//       //push to array;
+//       text.push(step.step);
+//     });
+//   //console.log(text.join());
+//   paragraph = text.join();
+//   sentence = paragraph.split('.')
+//   console.log(sentence);
 
-});
+// });
 
 
 recognition.onresult = function(event) {
@@ -151,4 +151,4 @@ recognition.onerror = function(event) {
   //recognition.stop();
 }
 
-}]);
+// }]);

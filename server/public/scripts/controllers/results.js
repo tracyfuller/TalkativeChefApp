@@ -2,52 +2,47 @@ myApp.controller('resultsController', ['$http', '$scope', '$window', 'RecipeFact
 
 $scope.recipeFactory = RecipeFactory;
 
-var id = 630187;
+var Url = document.URL;
+var ID = Url.split('=').pop();
 
-    console.log(id);
-    $scope.recipeFactory.setID(id)
 
-    $scope.recipeFactory.getRecipeFactory().then(function(response){
-      $scope.steps = $scope.recipeFactory.recipeSteps();
-      //console.log($scope.recipeFactory.recipeSteps());
-
-      sendRequest();
-  	});
-    
-function sendRequest () {
-
-    var request = {
-     method: 'GET',
-     url: 'https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/'+ id +'/information',
-     headers: {
-       'Content-Type': 'application/json',
-       'X-Mashape-Key': 'SQ10bf0CXymshkdJgwkErfFdYGT4p14N1aUjsnHZ8npfsZOeJD'
-     }
-
-   };
-
-    $http(request).then(
-        function successCallback(response) {
-            //console.log('req:',request);
-            //console.log('resp:',response);
-            $scope.recipeList = response.data;
-            //console.log($scope.recipeList.extendedIngredients);
-         }, function errorCallback(error){   
-          console.log('error');
+    $scope.recipeFactory.setID(ID);
+    $scope.recipeFactory.getRecipeFactory(ID).then(function(response){
+    $scope.recipeSteps = $scope.recipeFactory.recipeSteps();
+    console.log($scope.recipeSteps);
     });
-}
 
-function successCallback(response) {
-    $scope.recipeList = response.data.recipes;
-    console.log('this is',$scope.recipeList);
-    $scope.responseReceived = true;
-    $scope.recipeSearchField = '';
-    window.recipeList = $scope.recipeList;
-  }
 
-function errorCallback(error) {
-    if (error) {
-      alert('No recipies found' + response);
-    }
-  }
+
+    // $scope.steps = $scope.recipeFactory.recipeSteps();
+    //   console.log($scope.steps);
+
+//intialize an empty array to hold ingredients;
+// var text = [];
+// var paragraph = '';
+// var sentence = [];
+
+
+//uses the factory to call the API
+
+//var id = $scope.recipeFactory.setID();
+    //$scope.recipeFactory.setID();
+
+  
+  //console.log($scope.steps);
+  //loop through the returned array and pull out the directions;
+
+
+  // $scope.steps.forEach(
+  //   function(step, index){
+  //     //push to array;
+  //     text.push(step.step);
+  //   });
+  // //console.log(text.join());
+  // paragraph = text.join();
+  // sentence = paragraph.split('.')
+  // console.log(sentence);
+
+
+
 }]);
