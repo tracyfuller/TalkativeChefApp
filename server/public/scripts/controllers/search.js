@@ -1,24 +1,38 @@
 myApp.controller('searchController', ['$http', '$scope', '$window', 'RecipeFactory', function($http, $scope, $window, RecipeFactory) {
+  
+  console.log('search controller');
+
   $scope.responseReceived = false;
   $scope.recipeList = [];
   $scope.recipeSearchField = '';
   $scope.hideShowTutorial = false;
 
+  //hookup to factory
   $scope.recipeFactory = RecipeFactory;
 
+  //initial request to find recipes
   $scope.sendRequest = function(recipeSearchField) {
+
+    //captures the search criterai
     var search = $scope.recipeSearchField;
+
+    //sets the search criteria in factory; initalize request and return nresults
     $scope.recipeFactory.setSearch(search);
     $scope.recipeFactory.sendRequest(recipeSearchField).then(function(response){
     $scope.recipeList = $scope.recipeFactory.returnRequest();
+
+    //opens the response below the fold
     $scope.responseReceived = true;
+    $scope.recipeSearchField = '';
     console.log($scope.recipeList);
     });
 
+    //hides instruction window its open
     $scope.hideShowTutorial = false;
 
   };
 
+  //sets the recipie id and initializes the function in the factory; goes to results page; this isn't working...
   $scope.getRecipe = function(recipeId){
     var id = recipeId;
 

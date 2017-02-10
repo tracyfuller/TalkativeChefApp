@@ -4,7 +4,7 @@ var recipeResult = [];
 var recipeId = '';
 var setSearch = '';
 
-
+//intial recipe search;
 var request = function() {
 
     var request = {
@@ -17,16 +17,15 @@ var request = function() {
    };
    var promise = $http(request).then(
       function(response) {
-        console.log('req:',request);
-        console.log('resp',response);
+        //console.log('req:',request);
+        //console.log('resp',response);
         returnResults = response.data.recipes;
       });
    
-    // $http(request).then(successCallback, errorCallback);
     return promise;
   };
 
-
+//detailed recipe information;
 var findRecipe = function() {
 
     var request = {
@@ -39,8 +38,8 @@ var findRecipe = function() {
     };  
     var promise = $http(request).then(
         function(response) {
-            console.log('req:',request);
-            console.log('resp:',response);  
+            //console.log('req:',request);
+            //console.log('resp:',response);  
             recipeResult = response.data;
         });
 

@@ -1,36 +1,45 @@
 myApp.controller('resultsController', ['$http', '$scope', '$window', 'RecipeFactory', function($http, $scope, $window, RecipeFactory) {
 
+console.log('results controller');
+
 $scope.recipeFactory = RecipeFactory;
 
-//get the ID off of URL;
+//get the ID off of URL; plan b since I couldn't get the factory to work;
 var address = document.URL;
 var ID = address.split('=').pop();
 
-
+//goes to the factory: sets id pulled from url; gets and returns recipe info;
 $scope.recipeFactory.setID(ID);
 $scope.recipeFactory.getRecipeFactory(ID).then(function(response){
 $scope.recipeInfo = $scope.recipeFactory.recipeSteps();
 console.log($scope.recipeInfo);
 });
 
+//code for the search bar
+  $scope.sendRequest = function(recipeSearchField) {
+
+    //captures the search criterai
+    var search = $scope.recipeSearchField;
+
+    //sets the search criteria in factory; initalize request and return nresults
+    $scope.recipeFactory.setSearch(search);
+    $scope.recipeFactory.sendRequest(recipeSearchField).then(function(response){
+    $scope.recipeList = $scope.recipeFactory.returnRequest();
+
+    //opens the response below the fold
+    console.log($scope.recipeList);
+    });
 
 
-    // $scope.steps = $scope.recipeFactory.recipeSteps();
-    //   console.log($scope.steps);
+  };
 
+
+//might not need the code below:
 //intialize an empty array to hold ingredients;
 // var text = [];
 // var paragraph = '';
 // var sentence = [];
 
-
-//uses the factory to call the API
-
-//var id = $scope.recipeFactory.setID();
-    //$scope.recipeFactory.setID();
-
-  
-  //console.log($scope.steps);
   //loop through the returned array and pull out the directions;
 
 

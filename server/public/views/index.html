@@ -9,7 +9,7 @@
   <script type="text/javascript" src="/public/scripts/clientApp.js"></script>
   <script type="text/javascript" src="/public/scripts/factories/recipeFactory.js"></script>
   <script type="text/javascript" src="/public/scripts/controllers/search.js"></script>
-  <script type="text/javascript" src="/public/scripts/controllers/results.js"></script>
+  <!-- <script type="text/javascript" src="/public/scripts/controllers/results.js"></script> -->
   <!-- <script src='https://code.responsivevoice.org/responsivevoice.js'></script> -->
   <!-- <script type="text/javascript" src="/public/voice/voicefunction.js"></script> -->
 	<!-- <script type="text/javascript" src="/public/scripts/constants.js"></script> -->
@@ -21,9 +21,10 @@
 		<div id="searchBGImageContainer">
 			<img id="searchLogo" src="/public/images/logo-white.png" class="center-block" />
 			<div class="form-inline col-xs-8 col-xs-offset-2">
-				<input id="recipeSearchField" name="recipeSearchField" ng-model="recipeSearchField" placeholder="Type your search here" type="text" class="form-control" />
-				<button class="btn btn-success" ng-click="sendRequest()">Find Recipe</button>
-
+				<form>
+					<input id="recipeSearchField" name="recipeSearchField" ng-model="recipeSearchField" placeholder="Type your search here" type="text" class="form-control" />
+					<button class="btn btn-success" type="submit" value="submit" ng-click="sendRequest()">Find Recipe</button>
+				</form>
 				<div id="howToLink" ng-click="toggleTutorial()">
 					<a href="#howToContainer"><strong>New to Talkative Chef?</strong></a>
 				</div>
@@ -41,14 +42,11 @@
 					</div>
 				</div>
 			</div>
+			<button class="btn btn-success" type="submit" value="submit" ng-click="sendRequest()"><a href="#searchResultsContainer">More</a></button>
 		</div>
 		<div id="howToContainer" class="{{hideShowTutorial}}">
 			<h2>How to use Talkative Chef</h2>
 			<p>The first step is to find a recipe you are ready to make. Use our handy search tool to find a recipe that sounds great to you! We provide you with a list of top recipes relevant to your search. Once you've found the recipe of your dreams, start by looking over the ingredients list and getting out needed items. Now that you are ready to start, click on the "Begin Cooking!" button to start the Talkative Chef interactive talk experience.</p>
-
-		</div>
-		<div ng-repeat="step in recipe">
-		  {{step.step}}
 		</div>
 	</div>
 </body>
