@@ -1,25 +1,13 @@
-// //new angular stuff
-// myApp.controller('resultsController', ['$http', '$scope', '$window', 'RecipeFactory', function($http, $scope, $window, RecipeFactory) {
-
-// //new angular stuff; sets id of the oatmeal cookie; connect to factory which sort of doesn't matter with setting the ID;
-// $scope.recipeFactory = RecipeFactory;
-// var id = 630187;
 
 var SpeechRecognition = SpeechRecognition || webkitSpeechRecognition;
 var SpeechGrammarList = SpeechGrammarList || webkitSpeechGrammarList;
 var SpeechRecognitionEvent = SpeechRecognitionEvent || webkitSpeechRecognitionEvent;
 
-// var commands = [ "next step", " next step", "next step ", "what's the next step", " what's the next step", "what's the next step ",
-// "first step", " first step", "first step ", "first first", "firs step", " firs step", "firs step ", "next", " next", "next ",
-// "first", " first", "first ", "step", " step", "step ", "firs", " firs", "firs ", "nex", " nex", "nex ", "next next", " next next",
-// "next next "];
-
-var commands = ["first"];
+var commands = [ "next step", " next step", "next step ", "what's the next step", " what's the next step", "what's the next step ",
+"first step", " first step", "first step ", "first first", "firs step", " firs step", "firs step ", "next", " next", "next ",
+"first", " first", "first ", "step", " step", "step ", "firs", " firs", "firs ", "nex", " nex", "nex ", "next next", " next next",
+"next next "];
 var grammar = '#JSGF V1.0; grammar commands; public <next> = ' + commands.join(' | ') + ' ;';
-
-var diagnostic = document.querySelector('.output');
-var bg = document.querySelector('html');
-var recognizing = false;
 
 var recognition = new SpeechRecognition();
 var speechRecognitionList = new SpeechGrammarList();
@@ -30,18 +18,9 @@ recognition.lang = 'en-US';
 recognition.interimResults = true;
 recognition.maxAlternatives = 1;
 
-//if you want this to initialize on page load to results.html, the function will have to be rewritten as: 
-// speech();
-// function speech(){
-//   responsiveVoice.speak("Let me know when you're ready.");
-//   recognizing = true;
-//   recognition.start();
-//   console.log('Ready to receive a command.');
-// }
-
-
-
-
+var diagnostic = document.querySelector('.output');
+var bg = document.querySelector('html');
+var recognizing = false;
 //var hints = document.querySelector('.hints');
 
 //var commands= '';
@@ -66,32 +45,8 @@ speech = function(){
 
 }
 
-// //setter for the factory to pull the correct id; 
-// $scope.recipeFactory.setID(id);
-
-// //intialize an empty array to hold ingredients;
-// var text = [];
-// var paragraph = '';
-// var sentence = [];
-// //uses the factory to call the API
-// $scope.recipeFactory.getRecipeFactory().then(function(response){
-//   $scope.steps = $scope.recipeFactory.recipeSteps();
-//   //console.log($scope.steps);
-//   //loop through the returned array and pull out the directions;
-//   $scope.steps.forEach(
-//     function(step, index){
-//       //push to array;
-//       text.push(step.step);
-//     });
-//   //console.log(text.join());
-//   paragraph = text.join();
-//   sentence = paragraph.split('.')
-//   console.log(sentence);
-
-// });
-
-
 recognition.onresult = function(event) {
+  console.log('testing');
   // The SpeechRecognitionEvent results property returns a SpeechRecognitionResultList object
   // The SpeechRecognitionResultList object contains SpeechRecognitionResult objects.
   // It has a getter so it can be accessed like an array
@@ -103,7 +58,6 @@ recognition.onresult = function(event) {
 
   var last = event.results.length - 1;
   var command = event.results[last][0].transcript;
-
 
   //this is where we will call on the app to read the recipe
   // while(command.toLowerCase() != v.toLowerCase()){
@@ -118,15 +72,13 @@ recognition.onresult = function(event) {
     // command.
     // //s/  +/ /g;
     if(command.toLowerCase() == v.toLowerCase()){
-      responsiveVoice.speak(sentence[0]);
-      //recognizing = false;
-      //recognition.stop();
-    }else{
+      responsiveVoice.speak("Heat oven to 275 degrees Fahrenheit, then toast pecans and walnuts");
+      recognizing = false;
+      recognition.stop();}
+      else{
       console.log(command);
-      //return;
+      return;
     }
-
-
 });
 //check that what we said is one of the recognized commands
 
@@ -150,5 +102,4 @@ recognition.onerror = function(event) {
   diagnostic.textContent = 'Error occurred in recognition: ' + event.error;
   //recognition.stop();
 }
-
-// }]);
+// }
