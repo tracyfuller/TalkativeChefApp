@@ -12,6 +12,9 @@ $scope.responseReceived = false;
 var address = document.URL;
 var ID = address.split('=').pop();
 
+var text = [];
+var paragraph = '';
+var sentence = [];
 //goes to the factory: sets id pulled from url; gets and returns recipe info;
 $scope.recipeFactory.setID(ID);
 $scope.recipeFactory.getRecipeFactory(ID).then(function(response){
@@ -21,7 +24,26 @@ $scope.recipeFactory.getRecipeFactory(ID).then(function(response){
   console.log($scope.steps);
   console.log($scope.steps.length)
 
+  $scope.steps.forEach(
+    function(step, index){
+      //push to array;
+      text.push(step.step);
+    });
+  //console.log(text.join());
+  paragraph = text.join();
+  sentence = paragraph.split('.')
+  console.log(sentence);
+
   });
+
+// might not need the code below:
+// intialize an empty array to hold ingredients;
+
+
+  // loop through the returned array and pull out the directions;
+
+
+
 
 //code for the search bar
   $scope.sendRequest = function(recipeSearchField) {
@@ -115,12 +137,12 @@ speech = function(){
   console.log('Ready to receive a command.');
 
     //test loop for commands
-    for(i=0; i<$scope.steps.length; i++){
-      console.log($scope.steps[i].step);
-    };
+    // for(i=0; i<$scope.steps.length; i++){
+    //   console.log($scope.steps[i].step);
+    // };
 
 }
-  var step = 0;
+  var sentenceStep = 0;
 //listening event
 recognition.onresult = function(event) {
   console.log('testing');
@@ -137,10 +159,10 @@ recognition.onresult = function(event) {
     // command.
     // //s/  +/ /g;
     if(command.toLowerCase() == v.toLowerCase()){
-      console.log('before step',step);
-      responsiveVoice.speak($scope.steps[0].step);
+      console.log('before step',sentenceStep);
+      responsiveVoice.speak(sentence[0]);
       //step = step + 1;
-      console.log('after step',step)
+      console.log('after step',sentenceStep)
       //recognizing = false;
       //recognition.stop();}
       }else{
@@ -151,9 +173,9 @@ recognition.onresult = function(event) {
 
    secondCommands.forEach(function(v, i, a){
     if(command.toLowerCase() == v.toLowerCase()){
-      console.log(step);
-      step = step + 1;
-      responsiveVoice.speak($scope.steps[step].step);
+      console.log(sentenceStep);
+      sentenceStep = sentenceStep + 1;
+      responsiveVoice.speak(sentence[sentenceStep]);
       //step = step + 1;
 
       }else{
@@ -164,8 +186,8 @@ recognition.onresult = function(event) {
     redoCommands.forEach(function(v, i, a){
     if(command.toLowerCase() == v.toLowerCase()){
       //step = step + 1;
-      console.log(step);
-      responsiveVoice.speak($scope.steps[step].step);
+      console.log(sentenceStep);
+      responsiveVoice.speak(sentence[sentenceStep]);
 
       //recognizing = false;
       //recognition.stop();}
