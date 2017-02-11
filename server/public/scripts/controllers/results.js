@@ -14,8 +14,8 @@ $scope.recipeFactory.getRecipeFactory(ID).then(function(response){
 $scope.recipeInfo = $scope.recipeFactory.recipeSteps();
 $scope.steps = $scope.recipeInfo.analyzedInstructions[0].steps
 console.log($scope.recipeInfo);
-console.log($scope.steps[0]);
-console.log($scope.steps[1].step);
+console.log($scope.steps);
+console.log($scope.steps.length)
 });
 
 //code for the search bar
@@ -49,6 +49,9 @@ var grammar = '#JSGF V1.0; grammar commands; public <next> = ' + commands.join('
 //set commands and grammar for second
 var secondCommands = [ "next", " next", "next ", " next "];
 var grammar = '#JSGF V1.0; grammar commands; public <next> = ' + secondCommands.join(' | ') + ' ;';
+
+var redoCommands = [ "again", " again", "again ", " again "];
+var grammar = '#JSGF V1.0; grammar commands; public <next> = ' + redoCommands.join(' | ') + ' ;';
 
 var recognition = new SpeechRecognition();
 var speechRecognitionList = new SpeechGrammarList();
@@ -93,11 +96,13 @@ recognition.onresult = function(event) {
   var last = event.results.length - 1;
   var command = event.results[last][0].transcript;
 
+  var step = 0;
+
    commands.forEach(function(v, i, a){
     // command.
     // //s/  +/ /g;
     if(command.toLowerCase() == v.toLowerCase()){
-      responsiveVoice.speak($scope.steps[0].step);
+      responsiveVoice.speak($scope.steps[step].step);
       //recognizing = false;
       //recognition.stop();}
       }else{
@@ -108,7 +113,21 @@ recognition.onresult = function(event) {
 
    secondCommands.forEach(function(v, i, a){
     if(command.toLowerCase() == v.toLowerCase()){
-      responsiveVoice.speak($scope.steps[1].step);
+      step = step + 1;
+      console.log(step);
+      responsiveVoice.speak($scope.steps[step].step);
+
+      //recognizing = false;
+      //recognition.stop();}
+      }else{
+      console.log(command);
+      }
+      });
+      redoCommands.forEach(function(v, i, a){
+    if(command.toLowerCase() == v.toLowerCase()){
+      //step = step + 1;
+      console.log(step);
+      responsiveVoice.speak($scope.steps[step].step);
 
       //recognizing = false;
       //recognition.stop();}
@@ -116,7 +135,6 @@ recognition.onresult = function(event) {
       console.log(command);
       }
    });
-
 }
 
 
