@@ -4,6 +4,10 @@ console.log('results controller');
 
 $scope.recipeFactory = RecipeFactory;
 
+$scope.recipeContainerTest = true;
+$scope.responseReceived = false;
+
+
 //get the ID off of URL; plan b since I couldn't get the factory to work;
 var address = document.URL;
 var ID = address.split('=').pop();
@@ -11,12 +15,13 @@ var ID = address.split('=').pop();
 //goes to the factory: sets id pulled from url; gets and returns recipe info;
 $scope.recipeFactory.setID(ID);
 $scope.recipeFactory.getRecipeFactory(ID).then(function(response){
-$scope.recipeInfo = $scope.recipeFactory.recipeSteps();
-$scope.steps = $scope.recipeInfo.analyzedInstructions[0].steps
-console.log($scope.recipeInfo);
-console.log($scope.steps);
-console.log($scope.steps.length)
-});
+  $scope.recipeInfo = $scope.recipeFactory.recipeSteps();
+  $scope.steps = $scope.recipeInfo.analyzedInstructions[0].steps
+  console.log($scope.recipeInfo);
+  console.log($scope.steps);
+  console.log($scope.steps.length)
+
+  });
 
 //code for the search bar
   $scope.sendRequest = function(recipeSearchField) {
@@ -28,6 +33,12 @@ console.log($scope.steps.length)
     $scope.recipeFactory.setSearch(search);
     $scope.recipeFactory.sendRequest(recipeSearchField).then(function(response){
     $scope.recipeList = $scope.recipeFactory.returnRequest();
+    $scope.recipeSearchField = '';
+    
+    $scope.responseReceived = true; //sets the response box to show
+    $scope.recipeContainerTest = false; //this sets the current recipe list to false so that results show on same page;
+
+
 
     //opens the response below the fold
     console.log($scope.recipeList);
@@ -35,6 +46,22 @@ console.log($scope.steps.length)
 
 
   };
+
+  $scope.getRecipe = function(recipeId){
+    var id = recipeId;
+
+    console.log(id);
+    $scope.recipeFactory.setID(id);
+    $scope.recipeFactory.getRecipeFactory().then(function(repsonse){
+    //$window.location.href = '/public/views/recipe.html?id='+id
+    $scope.responseReceived = false; //sets the response box to show
+    $scope.recipeContainerNew = true; //this sets the current recipe list to false so that results show on same page;
+
+    $scope.recipeInfoNew = $scope.recipeFactory.recipeSteps();
+    $scope.stepsNew = $scope.recipeInfo.analyzedInstructions[0].steps
+    console.log($scope.recipeInfoNew);
+    });
+  }
 
 /**************BEGIN SPEECH******************/
 
