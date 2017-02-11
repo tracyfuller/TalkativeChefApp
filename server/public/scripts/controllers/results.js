@@ -87,7 +87,7 @@ speechRecognitionList.addFromString(grammar, 1);
 recognition.grammars = speechRecognitionList;
 recognition.continuous = true;
 recognition.lang = 'en-US';
-recognition.interimResults = true;
+recognition.interimResults = false;
 recognition.maxAlternatives = 1;
 
 var diagnostic = document.querySelector('.output');
@@ -120,7 +120,7 @@ speech = function(){
     };
 
 }
-
+  var step = 0;
 //listening event
 recognition.onresult = function(event) {
   console.log('testing');
@@ -129,7 +129,7 @@ recognition.onresult = function(event) {
   var command = event.results[last][0].transcript;
 
 //initailize the step at 0;
-  var step = 0;
+
 
 //idea: loop through the each command array as i speak; if there is a match to any arrai, do this; second commands needs to have as many 
 
@@ -137,7 +137,10 @@ recognition.onresult = function(event) {
     // command.
     // //s/  +/ /g;
     if(command.toLowerCase() == v.toLowerCase()){
-      responsiveVoice.speak($scope.steps[step].step);
+      console.log('before step',step);
+      responsiveVoice.speak($scope.steps[0].step);
+      //step = step + 1;
+      console.log('after step',step)
       //recognizing = false;
       //recognition.stop();}
       }else{
@@ -148,12 +151,11 @@ recognition.onresult = function(event) {
 
    secondCommands.forEach(function(v, i, a){
     if(command.toLowerCase() == v.toLowerCase()){
-      step = step + 1;
       console.log(step);
+      step = step + 1;
       responsiveVoice.speak($scope.steps[step].step);
+      //step = step + 1;
 
-      //recognizing = false;
-      //recognition.stop();}
       }else{
       console.log(command);
       }
