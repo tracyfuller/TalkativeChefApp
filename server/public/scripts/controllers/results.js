@@ -104,26 +104,27 @@ recognition.onresult = function(event) {
 //initailize the step at 0;
   var step = 0;
 
-//idea: loop through the each command array as i speak; if there is a match to any arrai, do this; second commands needs to have as many 
+//idea: loop through the each command array as i speak; if there is a match to any arrai, do this; second commands needs to have as many
 
    commands.forEach(function(v, i, a){
     // command.
     // //s/  +/ /g;
     if(command.toLowerCase() == v.toLowerCase()){
       responsiveVoice.speak($scope.steps[step].step);
+      step = step + 1;
       //recognizing = false;
       //recognition.stop();}
       }else{
       console.log(command);
-      
+
     }
    });
 
    secondCommands.forEach(function(v, i, a){
     if(command.toLowerCase() == v.toLowerCase()){
-      step = step + 1;
       console.log(step);
       responsiveVoice.speak($scope.steps[step].step);
+      step = step + 1;
 
       //recognizing = false;
       //recognition.stop();}
