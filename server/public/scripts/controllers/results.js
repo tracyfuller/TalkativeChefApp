@@ -67,7 +67,7 @@ var diagnostic = document.querySelector('.output');
 var bg = document.querySelector('html');
 var recognizing = false;
 
-//define both lists of cues
+//define lists of cues
 var firstList= '';
 commands.forEach(function(v, i, a){
   console.log(v, i);
@@ -87,6 +87,11 @@ speech = function(){
   recognition.start();
   console.log('Ready to receive a command.');
 
+    //test loop for commands
+    for(i=0; i<$scope.steps.length; i++){
+      console.log($scope.steps[i].step);
+    };
+
 }
 
 //listening event
@@ -96,7 +101,10 @@ recognition.onresult = function(event) {
   var last = event.results.length - 1;
   var command = event.results[last][0].transcript;
 
+//initailize the step at 0;
   var step = 0;
+
+//idea: loop through the each command array as i speak; if there is a match to any arrai, do this; second commands needs to have as many 
 
    commands.forEach(function(v, i, a){
     // command.
@@ -123,7 +131,8 @@ recognition.onresult = function(event) {
       console.log(command);
       }
       });
-      redoCommands.forEach(function(v, i, a){
+
+    redoCommands.forEach(function(v, i, a){
     if(command.toLowerCase() == v.toLowerCase()){
       //step = step + 1;
       console.log(step);
@@ -151,25 +160,6 @@ recognition.onerror = function(event) {
   diagnostic.textContent = 'Error occurred in recognition: ' + event.error;
   //recognition.stop();
 }
-//might not need the code below:
-//intialize an empty array to hold ingredients;
-// var text = [];
-// var paragraph = '';
-// var sentence = [];
-
-  //loop through the returned array and pull out the directions;
-
-
-  // $scope.steps.forEach(
-  //   function(step, index){
-  //     //push to array;
-  //     text.push(step.step);
-  //   });
-  // //console.log(text.join());
-  // paragraph = text.join();
-  // sentence = paragraph.split('.')
-  // console.log(sentence);
-
 
 
 }]);
