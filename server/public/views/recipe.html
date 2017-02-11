@@ -29,7 +29,7 @@
 		</div>
 
 
-		<div id="recipe-container">
+		<div id="recipe-container" ng-if="recipeContainerTest">
 			<h3>{{recipeInfo.title}}</h3>
 			<input type="btn btn-success" value="Start" onclick="speech()" style="display: none;" />
 			<input type="button" value="Start" onClick="speech()">
@@ -49,6 +49,45 @@
 			<div class="instruction-container">
 				<h5>Instructions:</h5>
 				<ul ng-repeat="step in recipeInfo.analyzedInstructions[0].steps">
+					<li>{{step.step}}</li>
+				</ul>
+			</div>
+		</div>
+
+		<div id="searchResultsContainer-test" ng-if="responseReceived">
+			<div class="search-results" ng-repeat="recipe in recipeList">
+				<div class="search-recipe-card" ng-click="getRecipe(recipe.id)">
+					<div class="cardTitle">
+						<h5 class="result-title">{{recipe.title}}</h5>
+					</div>
+					<div class="img-container fill">
+						<img class="recipe-img" ng-src="{{recipe.image}}" />
+					</div>
+				</div>
+			</div>
+			<button class="btn btn-success" type="submit" value="submit" ng-click="sendRequest()"><a href="#searchResultsContainer">More</a></button>
+		</div>
+
+		<div id="new-recipe-container" ng-if="recipeContainerNew">
+			<h3>{{recipeInfoNew.title}}</h3>
+			<input type="btn btn-success" value="Start" onclick="speech()" style="display: none;" />
+			<input type="button" value="Start" onClick="speech()">
+			<div>
+				<h5>Ingredients:</h5>
+				<div class="half-page">
+					<ul ng-repeat="ingredient in recipeInfoNew.extendedIngredients">
+						<p>{{ingredient.originalString}}</p>
+					</ul>
+				</div>
+				<div class="half-page">
+					<img ng-src="{{recipeInfoNew.image}}"/>
+					<p>Source: <a href="{{recipeInfo.sourceUrl}}">{{recipeInfoNew.sourceName}}</a></p>
+				</div>
+			</div>
+
+			<div class="instruction-container">
+				<h5>Instructions:</h5>
+				<ul ng-repeat="step in recipeInfoNew.analyzedInstructions[0].steps">
 					<li>{{step.step}}</li>
 				</ul>
 			</div>
