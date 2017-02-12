@@ -17,16 +17,8 @@ var sentence = [];
 //goes to the factory: sets id pulled from url; gets and returns recipe info;
 $scope.recipeFactory.setID(ID);
 $scope.recipeFactory.getRecipeFactory(ID).then(function(response){
-<<<<<<< HEAD
 $scope.recipeInfo = $scope.recipeFactory.recipeSteps();
 $scope.steps = $scope.recipeInfo.analyzedInstructions[0].steps
-console.log($scope.recipeInfo);
-console.log($scope.steps);
-console.log($scope.steps.length)
-});
-=======
-  $scope.recipeInfo = $scope.recipeFactory.recipeSteps();
-  $scope.steps = $scope.recipeInfo.analyzedInstructions[0].steps
   console.log($scope.recipeInfo);
   console.log($scope.steps);
   console.log($scope.steps.length)
@@ -42,7 +34,6 @@ console.log($scope.steps.length)
   console.log(sentence);
 
   });
->>>>>>> d932ac017176fe640c6319138fa5fd3afe95058f
 
 // might not need the code below:
 // intialize an empty array to hold ingredients;
@@ -128,7 +119,6 @@ speech = function(){
     // };
 
 }
-<<<<<<< HEAD
 
 //function on stop button click
 stopspeech = function(){
@@ -137,11 +127,7 @@ stopspeech = function(){
     recognition.continuous = false;
     console.log('Speech recognition service disconnected');
   }
-
-
-=======
   var sentenceStep = 0;
->>>>>>> d932ac017176fe640c6319138fa5fd3afe95058f
 //listening event
 recognition.onresult = function(event) {
   console.log('testing');
@@ -158,15 +144,10 @@ recognition.onresult = function(event) {
     // command.
     // //s/  +/ /g;
     if(command.toLowerCase() == v.toLowerCase()){
-<<<<<<< HEAD
-      responsiveVoice.speak($scope.steps[step].step);
-      step = step + 1;
-=======
       console.log('before step',sentenceStep);
       responsiveVoice.speak(sentence[0]);
       //step = step + 1;
       console.log('after step',sentenceStep)
->>>>>>> d932ac017176fe640c6319138fa5fd3afe95058f
       //recognizing = false;
       //recognition.stop();}
       }else{
@@ -177,16 +158,10 @@ recognition.onresult = function(event) {
 
    secondCommands.forEach(function(v, i, a){
     if(command.toLowerCase() == v.toLowerCase()){
-<<<<<<< HEAD
-      console.log(step);
-      responsiveVoice.speak($scope.steps[step].step);
-      step = step + 1;
-=======
       console.log(sentenceStep);
       sentenceStep = sentenceStep + 1;
       responsiveVoice.speak(sentence[sentenceStep]);
       //step = step + 1;
->>>>>>> d932ac017176fe640c6319138fa5fd3afe95058f
 
       }else{
       console.log(command);
