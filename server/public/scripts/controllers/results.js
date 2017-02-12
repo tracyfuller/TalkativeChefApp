@@ -70,14 +70,14 @@ var SpeechGrammarList = SpeechGrammarList || webkitSpeechGrammarList;
 var SpeechRecognitionEvent = SpeechRecognitionEvent || webkitSpeechRecognitionEvent;
 
 //set commands and grammar for initial
-var commands = [ "first", " first", "first ", " first "];
+var commands = [ "first", " first", "first ", " first ", "first step", " first step", "first step ", " first step "];
 var grammar = '#JSGF V1.0; grammar commands; public <next> = ' + commands.join(' | ') + ' ;';
 
 //set commands and grammar for second
-var secondCommands = [ "next", " next", "next ", " next "];
+var secondCommands = [ "next", " next", "next ", " next ", "next step", " next step", "next step ", " next step "];
 var grammar = '#JSGF V1.0; grammar commands; public <next> = ' + secondCommands.join(' | ') + ' ;';
 
-var redoCommands = [ "again", " again", "again ", " again "];
+var redoCommands = [ "repeat step", " repeat step", "repeat step ", " repeat step ", "again", " again", "again ", " again "];
 var grammar = '#JSGF V1.0; grammar commands; public <next> = ' + redoCommands.join(' | ') + ' ;';
 
 var recognition = new SpeechRecognition();
@@ -120,9 +120,7 @@ speech = function(){
     // };
 
 }
-<<<<<<< HEAD
   var sentenceStep = 0;
-=======
 
 //function on stop button click
 stopspeech = function(){
@@ -133,7 +131,6 @@ stopspeech = function(){
   }
 
 
->>>>>>> da3a474344a2679f51c027d00017199910f3b5d2
 //listening event
 recognition.onresult = function(event) {
   console.log('testing');
