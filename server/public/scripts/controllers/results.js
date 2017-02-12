@@ -1,6 +1,6 @@
 myApp.controller('resultsController', ['$http', '$scope', '$window', 'RecipeFactory', function($http, $scope, $window, RecipeFactory) {
 
-console.log('results controller');
+//console.log('results controller');
 
 $scope.recipeFactory = RecipeFactory;
 
@@ -20,9 +20,9 @@ $scope.recipeFactory.getRecipeFactory(ID).then(function(response){
 
   $scope.recipeInfo = $scope.recipeFactory.recipeSteps();
   $scope.steps = $scope.recipeInfo.analyzedInstructions[0].steps
-  console.log($scope.recipeInfo);
-  console.log($scope.steps);
-  console.log($scope.steps.length)
+  //console.log($scope.recipeInfo);
+  //console.log($scope.steps);
+  //console.log($scope.steps.length)
 
   $scope.steps.forEach(
     function(step, index){
@@ -32,7 +32,7 @@ $scope.recipeFactory.getRecipeFactory(ID).then(function(response){
   //console.log(text.join());
   paragraph = text.join();
   sentence = paragraph.split('.')
-  console.log(sentence);
+  //console.log(sentence);
 
   });
 
@@ -57,7 +57,7 @@ $scope.recipeFactory.getRecipeFactory(ID).then(function(response){
     $scope.recipeList = $scope.recipeFactory.returnRequest();
 
     //opens the response below the fold
-    console.log($scope.recipeList);
+    //console.log($scope.recipeList);
     });
 
 
@@ -97,13 +97,13 @@ var recognizing = false;
 //define lists of cues
 var firstList= '';
 commands.forEach(function(v, i, a){
-  console.log(v, i);
+  //console.log(v, i);
   firstList += '<span style="background-color:' + v + ';"> ' + v + ' </span>';
 });
 
 var secondList= '';
 secondCommands.forEach(function(v, i, a){
-  console.log(v, i);
+  //console.log(v, i);
   secondList += '<span style="background-color:' + v + ';"> ' + v + ' </span>';
 });
 
@@ -112,7 +112,7 @@ speech = function(){
   responsiveVoice.speak("Let me know when you're ready.");
   recognizing = true;
   recognition.start();
-  console.log('Ready to receive a command.');
+  //console.log('Ready to receive a command.');
 
     //test loop for commands
     // for(i=0; i<$scope.steps.length; i++){
@@ -127,13 +127,14 @@ stopspeech = function(){
     recognizing = false;
     recognition.stop();
     recognition.continuous = false;
-    console.log('Speech recognition service disconnected');
+    responsiveVoice.speak("You are all done.");
+    //console.log('Speech recognition service disconnected');
   }
 
 
 //listening event
 recognition.onresult = function(event) {
-  console.log('testing');
+  //console.log('testing');
 
   var last = event.results.length - 1;
   var command = event.results[last][0].transcript;
@@ -147,10 +148,10 @@ recognition.onresult = function(event) {
     // command.
     // //s/  +/ /g;
     if(command.toLowerCase() == v.toLowerCase()){
-      console.log('before step',sentenceStep);
+      //console.log('before step',sentenceStep);
       responsiveVoice.speak(sentence[0]);
       sentenceStep = 0;
-      console.log('after step',sentenceStep)
+      //console.log('after step',sentenceStep)
       //recognizing = false;
       //recognition.stop();}
       }else{
@@ -161,7 +162,7 @@ recognition.onresult = function(event) {
 
    secondCommands.forEach(function(v, i, a){
     if(command.toLowerCase() == v.toLowerCase()){
-      console.log(sentenceStep);
+      //console.log(sentenceStep);
       sentenceStep = sentenceStep + 1;
       responsiveVoice.speak(sentence[sentenceStep]);
       //step = step + 1;
@@ -174,7 +175,7 @@ recognition.onresult = function(event) {
     redoCommands.forEach(function(v, i, a){
     if(command.toLowerCase() == v.toLowerCase()){
       //step = step + 1;
-      console.log(sentenceStep);
+      //console.log(sentenceStep);
       responsiveVoice.speak(sentence[sentenceStep]);
 
       //recognizing = false;

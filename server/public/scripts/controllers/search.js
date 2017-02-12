@@ -1,6 +1,6 @@
 myApp.controller('searchController', ['$http', '$scope', '$window', 'RecipeFactory', function($http, $scope, $window, RecipeFactory) {
   
-  console.log('search controller');
+  //console.log('search controller');
 
   $scope.responseReceived = false;
   $scope.recipeList = [];
@@ -24,7 +24,7 @@ myApp.controller('searchController', ['$http', '$scope', '$window', 'RecipeFacto
     //opens the response below the fold
     $scope.responseReceived = true;
     $scope.recipeSearchField = '';
-    console.log($scope.recipeList);
+    //console.log($scope.recipeList);
     });
 
     //hides instruction window its open
@@ -36,7 +36,7 @@ myApp.controller('searchController', ['$http', '$scope', '$window', 'RecipeFacto
   $scope.getRecipe = function(recipeId){
     var id = recipeId;
 
-    console.log(id);
+    //console.log(id);
     $scope.recipeFactory.setID(id);
     $scope.recipeFactory.getRecipeFactory().then(function(repsonse){
     $window.location.href = '/public/views/recipe.html?id='+id

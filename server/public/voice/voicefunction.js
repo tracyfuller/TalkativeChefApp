@@ -32,7 +32,7 @@ var recognizing = false;
 
 var colorHTML= '';
 commands.forEach(function(v, i, a){
-  console.log(v, i);
+  //console.log(v, i);
   colorHTML += '<span style="background-color:' + v + ';"> ' + v + ' </span>';
 });
 //hints.innerHTML = 'Tap/click then say a color to change the background color of the app. Try '+ colorHTML + '.';
@@ -41,12 +41,12 @@ speech = function(){
   responsiveVoice.speak("Let me know when you're ready.");
   recognizing = true;
   recognition.start();
-  console.log('Ready to receive a command.');
+  //console.log('Ready to receive a command.');
 
 }
 
 recognition.onresult = function(event) {
-  console.log('testing');
+  //console.log('testing');
   // The SpeechRecognitionEvent results property returns a SpeechRecognitionResultList object
   // The SpeechRecognitionResultList object contains SpeechRecognitionResult objects.
   // It has a getter so it can be accessed like an array
@@ -76,7 +76,7 @@ recognition.onresult = function(event) {
       recognizing = false;
       recognition.stop();}
       else{
-      console.log(command);
+      //console.log(command);
       return;
     }
 });
