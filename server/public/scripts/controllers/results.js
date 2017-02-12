@@ -161,7 +161,7 @@ recognition.onresult = function(event) {
     if(command.toLowerCase() == v.toLowerCase()){
       console.log('before step',sentenceStep);
       responsiveVoice.speak(sentence[0]);
-      //step = step + 1;
+      sentenceStep = 0;
       console.log('after step',sentenceStep)
       //recognizing = false;
       //recognition.stop();}
