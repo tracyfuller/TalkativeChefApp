@@ -11,15 +11,47 @@ $scope.responseReceived = false;
 var address = document.URL;
 var ID = address.split('=').pop();
 
+var text = [];
+var paragraph = '';
+var sentence = [];
 //goes to the factory: sets id pulled from url; gets and returns recipe info;
 $scope.recipeFactory.setID(ID);
 $scope.recipeFactory.getRecipeFactory(ID).then(function(response){
+<<<<<<< HEAD
 $scope.recipeInfo = $scope.recipeFactory.recipeSteps();
 $scope.steps = $scope.recipeInfo.analyzedInstructions[0].steps
 console.log($scope.recipeInfo);
 console.log($scope.steps);
 console.log($scope.steps.length)
 });
+=======
+  $scope.recipeInfo = $scope.recipeFactory.recipeSteps();
+  $scope.steps = $scope.recipeInfo.analyzedInstructions[0].steps
+  console.log($scope.recipeInfo);
+  console.log($scope.steps);
+  console.log($scope.steps.length)
+
+  $scope.steps.forEach(
+    function(step, index){
+      //push to array;
+      text.push(step.step);
+    });
+  //console.log(text.join());
+  paragraph = text.join();
+  sentence = paragraph.split('.')
+  console.log(sentence);
+
+  });
+>>>>>>> d932ac017176fe640c6319138fa5fd3afe95058f
+
+// might not need the code below:
+// intialize an empty array to hold ingredients;
+
+
+  // loop through the returned array and pull out the directions;
+
+
+
 
 //code for the search bar
   $scope.sendRequest = function(recipeSearchField) {
@@ -63,7 +95,7 @@ speechRecognitionList.addFromString(grammar, 1);
 recognition.grammars = speechRecognitionList;
 recognition.continuous = true;
 recognition.lang = 'en-US';
-recognition.interimResults = true;
+recognition.interimResults = false;
 recognition.maxAlternatives = 1;
 
 var diagnostic = document.querySelector('.output');
@@ -91,11 +123,12 @@ speech = function(){
   console.log('Ready to receive a command.');
 
     //test loop for commands
-    for(i=0; i<$scope.steps.length; i++){
-      console.log($scope.steps[i].step);
-    };
+    // for(i=0; i<$scope.steps.length; i++){
+    //   console.log($scope.steps[i].step);
+    // };
 
 }
+<<<<<<< HEAD
 
 //function on stop button click
 stopspeech = function(){
@@ -106,6 +139,9 @@ stopspeech = function(){
   }
 
 
+=======
+  var sentenceStep = 0;
+>>>>>>> d932ac017176fe640c6319138fa5fd3afe95058f
 //listening event
 recognition.onresult = function(event) {
   console.log('testing');
@@ -114,7 +150,7 @@ recognition.onresult = function(event) {
   var command = event.results[last][0].transcript;
 
 //initailize the step at 0;
-  var step = 0;
+
 
 //idea: loop through the each command array as i speak; if there is a match to any arrai, do this; second commands needs to have as many
 
@@ -122,8 +158,15 @@ recognition.onresult = function(event) {
     // command.
     // //s/  +/ /g;
     if(command.toLowerCase() == v.toLowerCase()){
+<<<<<<< HEAD
       responsiveVoice.speak($scope.steps[step].step);
       step = step + 1;
+=======
+      console.log('before step',sentenceStep);
+      responsiveVoice.speak(sentence[0]);
+      //step = step + 1;
+      console.log('after step',sentenceStep)
+>>>>>>> d932ac017176fe640c6319138fa5fd3afe95058f
       //recognizing = false;
       //recognition.stop();}
       }else{
@@ -134,12 +177,17 @@ recognition.onresult = function(event) {
 
    secondCommands.forEach(function(v, i, a){
     if(command.toLowerCase() == v.toLowerCase()){
+<<<<<<< HEAD
       console.log(step);
       responsiveVoice.speak($scope.steps[step].step);
       step = step + 1;
+=======
+      console.log(sentenceStep);
+      sentenceStep = sentenceStep + 1;
+      responsiveVoice.speak(sentence[sentenceStep]);
+      //step = step + 1;
+>>>>>>> d932ac017176fe640c6319138fa5fd3afe95058f
 
-      //recognizing = false;
-      //recognition.stop();}
       }else{
       console.log(command);
       }
@@ -148,8 +196,8 @@ recognition.onresult = function(event) {
     redoCommands.forEach(function(v, i, a){
     if(command.toLowerCase() == v.toLowerCase()){
       //step = step + 1;
-      console.log(step);
-      responsiveVoice.speak($scope.steps[step].step);
+      console.log(sentenceStep);
+      responsiveVoice.speak(sentence[sentenceStep]);
 
       //recognizing = false;
       //recognition.stop();}
