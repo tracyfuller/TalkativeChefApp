@@ -7,7 +7,6 @@ $scope.recipeFactory = RecipeFactory;
 $scope.recipeContainerTest = true;
 $scope.responseReceived = false;
 
-
 //get the ID off of URL; plan b since I couldn't get the factory to work;
 var address = document.URL;
 var ID = address.split('=').pop();
@@ -18,6 +17,7 @@ var sentence = [];
 //goes to the factory: sets id pulled from url; gets and returns recipe info;
 $scope.recipeFactory.setID(ID);
 $scope.recipeFactory.getRecipeFactory(ID).then(function(response){
+
   $scope.recipeInfo = $scope.recipeFactory.recipeSteps();
   $scope.steps = $scope.recipeInfo.analyzedInstructions[0].steps
   console.log($scope.recipeInfo);
@@ -55,12 +55,6 @@ $scope.recipeFactory.getRecipeFactory(ID).then(function(response){
     $scope.recipeFactory.setSearch(search);
     $scope.recipeFactory.sendRequest(recipeSearchField).then(function(response){
     $scope.recipeList = $scope.recipeFactory.returnRequest();
-    $scope.recipeSearchField = '';
-    
-    $scope.responseReceived = true; //sets the response box to show
-    $scope.recipeContainerTest = false; //this sets the current recipe list to false so that results show on same page;
-
-
 
     //opens the response below the fold
     console.log($scope.recipeList);
@@ -68,22 +62,6 @@ $scope.recipeFactory.getRecipeFactory(ID).then(function(response){
 
 
   };
-
-  $scope.getRecipe = function(recipeId){
-    var id = recipeId;
-
-    console.log(id);
-    $scope.recipeFactory.setID(id);
-    $scope.recipeFactory.getRecipeFactory().then(function(repsonse){
-    //$window.location.href = '/public/views/recipe.html?id='+id
-    $scope.responseReceived = false; //sets the response box to show
-    $scope.recipeContainerNew = true; //this sets the current recipe list to false so that results show on same page;
-
-    $scope.recipeInfoNew = $scope.recipeFactory.recipeSteps();
-    $scope.stepsNew = $scope.recipeInfo.analyzedInstructions[0].steps
-    console.log($scope.recipeInfoNew);
-    });
-  }
 
 /**************BEGIN SPEECH******************/
 
@@ -129,7 +107,7 @@ secondCommands.forEach(function(v, i, a){
   secondList += '<span style="background-color:' + v + ';"> ' + v + ' </span>';
 });
 
-//function on button click
+//function on start button click
 speech = function(){
   responsiveVoice.speak("Let me know when you're ready.");
   recognizing = true;
@@ -142,7 +120,20 @@ speech = function(){
     // };
 
 }
+<<<<<<< HEAD
   var sentenceStep = 0;
+=======
+
+//function on stop button click
+stopspeech = function(){
+    recognizing = false;
+    recognition.stop();
+    recognition.continuous = false;
+    console.log('Speech recognition service disconnected');
+  }
+
+
+>>>>>>> da3a474344a2679f51c027d00017199910f3b5d2
 //listening event
 recognition.onresult = function(event) {
   console.log('testing');
@@ -153,7 +144,7 @@ recognition.onresult = function(event) {
 //initailize the step at 0;
 
 
-//idea: loop through the each command array as i speak; if there is a match to any arrai, do this; second commands needs to have as many 
+//idea: loop through the each command array as i speak; if there is a match to any arrai, do this; second commands needs to have as many
 
    commands.forEach(function(v, i, a){
     // command.
@@ -167,7 +158,7 @@ recognition.onresult = function(event) {
       //recognition.stop();}
       }else{
       console.log(command);
-      
+
     }
    });
 
@@ -195,22 +186,16 @@ recognition.onresult = function(event) {
       console.log(command);
       }
    });
+
+   recognition.onnomatch = function(event) {
+     diagnostic.textContent = "I didn't recognise that message.";
+     //reset();
+   }
+
+   recognition.onerror = function(event) {
+     diagnostic.textContent = 'Error occurred in recognition: ' + event.error;
+     //recognition.stop();
+   }
+
 }
-
-
-recognition.onspeechend = function() {
-  recognition.stop();
-}
-
-recognition.onnomatch = function(event) {
-  diagnostic.textContent = "I didn't recognise that message.";
-  //reset();
-}
-
-recognition.onerror = function(event) {
-  diagnostic.textContent = 'Error occurred in recognition: ' + event.error;
-  //recognition.stop();
-}
-
-
 }]);
