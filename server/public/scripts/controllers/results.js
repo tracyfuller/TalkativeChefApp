@@ -14,15 +14,23 @@ var ID = address.split('=').pop();
 var text = [];
 var paragraph = '';
 var sentence = [];
+var list = [];
 //goes to the factory: sets id pulled from url; gets and returns recipe info;
 $scope.recipeFactory.setID(ID);
 $scope.recipeFactory.getRecipeFactory(ID).then(function(response){
 
   $scope.recipeInfo = $scope.recipeFactory.recipeSteps();
   $scope.steps = $scope.recipeInfo.analyzedInstructions[0].steps
-  //console.log($scope.recipeInfo);
+  var ingredients = $scope.recipeInfo.extendedIngredients;
+  //console.log($scope.ingredients)
   //console.log($scope.steps);
   //console.log($scope.steps.length)
+
+  ingredients.forEach(
+    function(item, index){
+      list.push(item.originalString);
+    });
+  //console.log(list);
 
   $scope.steps.forEach(
     function(step, index){
@@ -35,14 +43,6 @@ $scope.recipeFactory.getRecipeFactory(ID).then(function(response){
   //console.log(sentence);
 
   });
-
-// might not need the code below:
-// intialize an empty array to hold ingredients;
-
-
-  // loop through the returned array and pull out the directions;
-
-
 
 
 //code for the search bar
@@ -80,6 +80,15 @@ var grammar = '#JSGF V1.0; grammar commands; public <next> = ' + secondCommands.
 var redoCommands = [ "repeat step", " repeat step", "repeat step ", " repeat step ", "again", " again", "again ", " again "];
 var grammar = '#JSGF V1.0; grammar commands; public <next> = ' + redoCommands.join(' | ') + ' ;';
 
+var ingredients = [ "ingredients", " ingredients", "ingredients ", " ingredients "];
+var grammar = '#JSGF V1.0; grammar commands; public <next> = ' + ingredients.join(' | ') + ' ;';
+
+var stop = [ "stop", " stop", "stop ", " stop "];
+var grammar = '#JSGF V1.0; grammar commands; public <next> = ' + stop.join(' | ') + ' ;';
+
+var start = [ "restart", " restart", "restart ", " restart "];
+var grammar = '#JSGF V1.0; grammar commands; public <next> = ' + start.join(' | ') + ' ;';
+
 var recognition = new SpeechRecognition();
 var speechRecognitionList = new SpeechGrammarList();
 
@@ -95,21 +104,34 @@ var bg = document.querySelector('html');
 var recognizing = false;
 
 //define lists of cues
-var firstList= '';
-commands.forEach(function(v, i, a){
-  //console.log(v, i);
-  firstList += '<span style="background-color:' + v + ';"> ' + v + ' </span>';
-});
+// var firstList= '';
+// commands.forEach(function(v, i, a){
+//   //console.log(v, i);
+//   firstList += '<span style="background-color:' + v + ';"> ' + v + ' </span>';
+// });
 
-var secondList= '';
-secondCommands.forEach(function(v, i, a){
-  //console.log(v, i);
-  secondList += '<span style="background-color:' + v + ';"> ' + v + ' </span>';
-});
+// var secondList= '';
+// secondCommands.forEach(function(v, i, a){
+//   //console.log(v, i);
+//   secondList += '<span style="background-color:' + v + ';"> ' + v + ' </span>';
+// });
 
 //function on start button click
 speech = function(){
   responsiveVoice.speak("Let me know when you're ready.");
+  recognizing = true;
+  recognition.start();
+  //console.log('Ready to receive a command.');
+
+    //test loop for commands
+    // for(i=0; i<$scope.steps.length; i++){
+    //   console.log($scope.steps[i].step);
+    // };
+
+}
+
+respeech = function(){
+  //responsiveVoice.speak("Let me know when you're ready.");
   recognizing = true;
   recognition.start();
   //console.log('Ready to receive a command.');
@@ -168,7 +190,7 @@ recognition.onresult = function(event) {
       //step = step + 1;
 
       }else{
-      console.log(command);
+      //console.log(command);
       }
       });
 
@@ -181,9 +203,51 @@ recognition.onresult = function(event) {
       //recognizing = false;
       //recognition.stop();}
       }else{
-      console.log(command);
+      //console.log(command);
       }
    });
+
+    ingredients.forEach(function(v, i, a){
+    if(command.toLowerCase() == v.toLowerCase()){
+      //step = step + 1;
+      //console.log(sentenceStep);
+      list.forEach(
+        function(item, index){
+          responsiveVoice.speak(item);
+        });
+
+      //recognizing = false;
+      //recognition.stop();}
+      }else{
+      //console.log(command);
+      }
+   });
+
+    stop.forEach(function(v, i, a){
+    if(command.toLowerCase() == v.toLowerCase()){
+      //step = step + 1;
+      //console.log(sentenceStep);
+      stopspeech();
+      //recognizing = false;
+      //recognition.stop();}
+      }else{
+      //console.log(command);
+      }
+
+   });    
+
+   //  start.forEach(function(v, i, a){
+   //  if(command.toLowerCase() == v.toLowerCase()){
+   //    //step = step + 1;
+   //    //console.log(sentenceStep);
+   //    speech();
+
+   //    //recognizing = false;
+   //    //recognition.stop();}
+   //    }else{
+   //    //console.log(command);
+   //    }
+   // }); 
 
    recognition.onnomatch = function(event) {
      diagnostic.textContent = "I didn't recognise that message.";

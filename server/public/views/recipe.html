@@ -35,7 +35,7 @@
 			<input type="button" value="Start" onClick="speech()">
 			<input type="btn btn-success" value="Stop" onclick="stopspeech()" style="display: none;" />
 			<input type="button" value="Stop" onClick="stopspeech()">
-			<div>
+			<div class="ingredients-container">
 				<h5>Ingredients:</h5>
 				<div class="half-page">
 					<ul ng-repeat="ingredient in recipeInfo.extendedIngredients">
@@ -43,7 +43,9 @@
 					</ul>
 				</div>
 				<div class="half-page">
+				<div class="recipe-img-container fill">
 					<img ng-src="{{recipeInfo.image}}"/>
+				</div>
 					<p>Source: <a href="{{recipeInfo.sourceUrl}}">{{recipeInfo.sourceName}}</a></p>
 				</div>
 			</div>

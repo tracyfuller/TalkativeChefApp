@@ -18,9 +18,10 @@ myApp.controller('searchController', ['$http', '$scope', '$window', 'RecipeFacto
 
     //sets the search criteria in factory; initalize request and return nresults
     $scope.recipeFactory.setSearch(search);
+    animation();
     $scope.recipeFactory.sendRequest(recipeSearchField).then(function(response){
     $scope.recipeList = $scope.recipeFactory.returnRequest();
-
+    
     //opens the response below the fold
     $scope.responseReceived = true;
     $scope.recipeSearchField = '';
@@ -54,5 +55,19 @@ myApp.controller('searchController', ['$http', '$scope', '$window', 'RecipeFacto
     //console.log($scope.hideShowTutorial);
   }
 
+  var animation = function () {
+      var elem = document.getElementById("myBar");
+      var width = 1;
+      var id = setInterval(frame, 30);
+
+      function frame() {
+          if (width >= 100) {
+              clearInterval(id);
+          } else {
+              width++;
+              elem.style.width = width + '%';
+          }
+      }
+  }
 
 }]);
